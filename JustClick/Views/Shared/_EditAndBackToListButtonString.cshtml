@@ -1,0 +1,22 @@
+﻿@*@using Radzen and
+@using Radzen.Blazor*@
+@model string
+
+
+<div class="row">
+    <div class="col">
+        @*<RadzenButton Click="@((args) => Click(args, "Button with icon"))" Icon="account_circle" Style="margin-bottom: 20px; width: 80px" />*@
+
+        @*<RadzenButton type="submit" ID="Upsert" icon="account_circle"  asp-route-id="@Model" Text="Update" />*@
+        <button type="submit" ID="Update" class="btn btn-primary form-control" asp-action="Update" asp-route-id="@Model">Update</button>
+    </div>
+    <div class="col">
+        <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+    </div>
+</div>
+
+
+
+
+
+

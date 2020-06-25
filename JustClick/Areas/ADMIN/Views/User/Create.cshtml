@@ -1,0 +1,263 @@
+﻿
+
+@model JustClick.Models.ViewModels.RegisterViewModel
+
+@{
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Users";
+}
+
+
+
+
+<div class="row">
+    <div class="col">
+        <div class="card shadow">
+            <form method="post">
+
+                @*<div class="row p-3 border">*@
+                @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+
+
+                @*title = "Create User's Info";*@
+
+
+                <div class="card-header border-0">
+                    <br />
+                    <div class="row">
+                        <div class="col-12 border-bottom">
+                            <h2 class="text-primary">@title</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-8 pt-4">
+
+
+                    @if (Model.Id != null)
+                    {
+
+                        <input type="hidden" asp-for="Id" />
+                    }
+
+
+                    <div class="form-group row">
+                        <div class="col-4" style="text-align:right">
+                            <label asp-for="PROJECT_CODE"></label>
+                        </div>
+                        <div class="col-8">
+                            @Html.DropDownListFor(m => m.PROJECT_CODE, Model.PROJECT_CODE_LIST, "-Select  Project Code",
+                           new { @class = "form-control" })
+                            <span asp-validation-for="PROJECT_CODE" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4" style="text-align:right">
+                            <label asp-for="ROLE"></label>
+                        </div>
+                        <div class="col-8">
+                            @Html.DropDownListFor(m => m.ROLE, Model.ROLE_LIST, "-Select Role",
+                           new { @class = "form-control", @id = "ddlRole" })
+                            <span asp-validation-for="ROLE" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+                    <div class="form-group row">
+                        <div class="col-4" style="text-align:right">
+                            <label asp-for="TEAMLEADER_ID"></label>
+                        </div>
+                        <div class="col-8"  id="TEAMLEADER_ID">
+
+
+
+
+                            @Html.DropDownListFor(x => x.TEAMLEADER_ID, Model.TEAMLEADER_LIST, "-Select Teamleader", new { @id = "TEAMLEADER_ID", @class = "form-control" })
+
+                            <span asp-validation-for="TEAMLEADER_ID" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                    <div class="form-group row">
+                        <div class="col-4" style="text-align:right">
+                            <label asp-for="UserName"></label>
+                        </div>
+
+                        <div class="col-8">
+
+
+
+                            @if (Model.Id != null)
+                            {
+                                <input asp-for="UserName" class=" form-control" readonly />
+                            }
+                            else
+                            {
+                                <input asp-for="UserName" class=" form-control" />
+                            }
+
+
+
+                            <span asp-validation-for="UserName" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4" style="text-align:right">
+                            <label asp-for="TITLE_THAI"></label>
+                        </div>
+                        <div class="col-8">
+                            @Html.DropDownListFor(m => m.TITLE_THAI, Model.TITLE_LIST, "-Select Title",
+                           new { @class = "form-control" })
+                            <span asp-validation-for="TITLE_THAI" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-4" style="text-align:right">
+                            <label asp-for="FNAME_THAI"></label>
+                        </div>
+
+                        <div class="col-8">
+                            <input asp-for="FNAME_THAI" class=" form-control" />
+                            <span asp-validation-for="FNAME_THAI" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4" style="text-align:right">
+                            <label asp-for="LNAME_THAI"></label>
+                        </div>
+
+                        <div class="col-8">
+                            <input asp-for="LNAME_THAI" class=" form-control" />
+                            <span asp-validation-for="LNAME_THAI" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-4" style="text-align:right">
+                            <label asp-for="ACCESSSTATUS"></label>
+                        </div>
+
+                        <div class="col-8">
+                            <span class="clearfix"></span>
+                            <label class="custom-toggle">
+                                <input asp-for="ACCESSSTATUS" type="checkbox">
+                                <span class="custom-toggle-slider rounded-circle"></span>
+                            </label>
+                            <span asp-validation-for="ACCESSSTATUS" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-8 offset-4">
+                            @if (Model.Id != null)
+                            {
+
+
+                                <partial name="_EditAndBackToListButtonString" model="Model.Id" />
+                            }
+                            else
+                            {
+                                <partial name="_CreateAndBackToListButton" />
+                            }
+                        </div>
+                    </div>
+                </div>
+                @*</div>*@
+
+
+
+                @if (@ViewBag.Message != null)
+                {
+                    <script type="text/javascript">
+
+                        window.onload = function () {
+
+                                    swal({
+                                        title: "Warning",
+                                        text: "@Html.Raw( @ViewBag.Message)",
+                                        icon: "warning",
+                                        html: true,
+                                        dangerMode: true
+                                    })
+
+
+                                //swal("@ViewBag.Message");
+                            };
+                    </script>
+                }
+
+
+
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ddlRole').change(function () {
+                $.ajax({
+                    type: "post",
+                    url: "/Admin/User/GetroleLeader",
+                    data: { role: $('#ddlRole').val() },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (data) {
+
+
+
+
+
+                        var teamleader = "<select class='form-control valid' data-val='true' id='TEAMLEADER_ID'  name='TEAMLEADER_ID'>";
+                        teamleader = teamleader + '<option value="">-Select Teamleader</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            console.log(data[i].Value)
+                            console.log(data[i].Text)
+                            teamleader = teamleader + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+
+                        }
+                        teamleader = teamleader + '</select>';
+                        $('#TEAMLEADER_ID').html(teamleader);
+                    }
+                });
+            });
+        });
+    </script>
+
+}

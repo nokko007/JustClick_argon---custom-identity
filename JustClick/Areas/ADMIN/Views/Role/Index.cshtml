@@ -1,0 +1,90 @@
+﻿@using Microsoft.AspNetCore.Identity;
+
+@model IEnumerable<IdentityRole>
+@*@model JustClick.Models.Identity.RoleEdit*@
+
+
+@{
+    ViewData["Title"] = "Roles";
+
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+
+                    <br />
+                    <div class="row">
+                        <div class="col-6">
+                            <h2 class="text-primary"> Roles List </h2>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a class="btn btn-primary color text-white" asp-action="Upsert"><i class="fas fa-plus  "></i> Create Role </a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <table id="tblData" class="table align-items-center table-flush" style="width:100%">
+                    <thead class="thead-light">
+                        <tr class="table-info">
+
+                            <th>Role ID</th>
+                            <th>Role Name</th>
+                            @*<th>Action</th>*@
+                        </tr>
+
+
+
+
+
+                        @foreach (var role in Model)
+                        {
+                            <tr>
+                                <td>@role.Id</td>
+                                <td>@role.Name</td>
+
+
+
+
+                                @*<td><a class="btn btn-sm btn-primary" asp-action="Update" asp-route-id="@role.Id">Update</a></td>
+                                <td>
+                                    <form asp-action="Delete" asp-route-id="@role.Id" method="post">
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>*@
+
+                                @*<td class="text-right">
+                                    <div class="dropdown">
+                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-xl dropdown-menu-arrow">
+                                            <a asp-action="Upsert" asp-route-id="@role.Id" class="dropdown-item">Edit</a>
+                                            <a asp-action="Delete" asp-route-id="@role.Id" class="dropdown-item">Delete</a>
+                                        </div>
+                                    </div>
+                                </td>*@
+
+
+
+                            </tr>
+                        }
+
+
+
+                    </thead>
+                </table>
+
+
+
+
+
+            </div>
+        </div>
+    </div>

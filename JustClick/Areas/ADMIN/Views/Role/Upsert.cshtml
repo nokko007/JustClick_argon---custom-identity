@@ -1,0 +1,109 @@
+﻿@model JustClick.Models.Identity.RoleModification;
+
+
+@{
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Role";
+}
+
+
+<div class="row">
+    <div class="col">
+        <div class="card shadow">
+
+
+            <form method="post">
+
+
+                @*<div class="row p-3 border">*@
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                @if (Model.RoleId != null)
+                {
+                    title = "Edit Role";
+                    <input type="hidden" asp-for="RoleId" />
+                }
+
+
+
+
+                <div class="card-header border-0">
+                    <br />
+                    <div class="row">
+                        <div class="col-12 border-bottom">
+                            <h2 class="text-primary">@title</h2>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-8 pt-4">
+
+                    <div class="form-group row">
+                        <div class="col-4" style="text-align:right">
+                            <label asp-for="RoleName"></label>
+                        </div>
+
+                        <div class="col-8">
+                            <input asp-for="RoleName" class=" form-control" />
+                            <span asp-validation-for="RoleName" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="form-group row">
+                        <div class="col-8 offset-4">
+                            @if (Model.RoleId != null)
+                            {
+
+
+                                <partial name="_EditAndBackToListButtonString" model="Model.RoleId" />
+                            }
+                            else
+                            {
+                                <partial name="_CreateAndBackToListButton" />
+                            }
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+   
+
+    @if (@ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+
+                window.onload = function () {
+
+                            swal({
+                                title: "Warning",
+                                text: "@Html.Raw( @ViewBag.Message)",
+                                icon: "warning",
+                                html: true,
+                                dangerMode: true
+                            })
+
+
+                        //swal("@ViewBag.Message");
+                    };
+        </script>
+
+      
+
+
+    }
+}

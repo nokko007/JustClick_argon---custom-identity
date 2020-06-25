@@ -1,0 +1,44 @@
+﻿@using JustClick.Utility
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <partial name="_PageHeadElement" />
+
+    @RenderSection("Styles", required: false)
+    @RenderSection("HeadScripts", required: false)
+</head>
+<body>
+    @*<partial name="_GoogleTagManagerBodyElement" />*@
+    @if (User.IsInRole(SD.Role_Admin))
+    {
+        <partial name="_Sidebar_ADMIN" />
+    }
+    @if (User.IsInRole(SD.Role_TSR))
+    {
+        <partial name="_Sidebar" />
+    }
+    @*<partial name="_Sidebar_ADMIN" />*@
+    <div class="main-content">
+
+
+        <partial name="_Navbar" />
+
+        @*<partial name="_Navbar_TSR" />
+            }*@
+
+        <partial name="_Header" />
+        <!-- Page content -->
+        <div class="container-fluid mt--7">
+            <!-- Page content -->
+            @RenderBody()
+            <partial name="_Footer" />
+        </div>
+    </div>
+
+    <partial name="_ThemeScripts" />
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
