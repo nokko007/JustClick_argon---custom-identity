@@ -1,0 +1,199 @@
+﻿@model JustClick.Models.ViewModels.DataProfileViewModel
+
+
+@{ ViewData["Title"] = "Import data to project"; }
+@{
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Import data to project";
+}
+
+<!-- stat start here-->
+<!-- Card stats -->
+<div class="row">
+    <div class="col-xl-4 col-lg-3">
+        <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Total Data</h5>
+                        <span class="h2 font-weight-bold mb-0"> @Model.TOTALINDATABASE </span>
+                    </div>
+                    <div class="col-auto">
+                        <div class="icon icon-shape bg-gradient-indigo text-white rounded-circle shadow">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-3">
+        <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Transferred Data</h5>
+                        <span class="h2 font-weight-bold mb-0">@Model.TRANSFERDATA</span>
+                    </div>
+                    <div class="col-auto">
+                        <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-3">
+        <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Total Free Data</h5>
+                        <span class="h2 font-weight-bold mb-0">@Model.FREEDATA</span>
+                    </div>
+                    <div class="col-auto">
+                        <div class="icon icon-shape bg-gradient-success text-white rounded-circle shadow  ">
+                            <i class="fas fa-chart-area"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<!--criteria start here-->
+
+
+
+
+<div class="row mt-2">
+    <div class="col">
+        <div class="card shadow">
+            @*<form method="post">*@
+
+            <div class="card-header border-0">
+                <br />
+                <div class="row">
+                    <div class="col-12 border-bottom">
+                        <h2 class="text-primary">@title</h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <form method="post" OnSubmit="sendData()">
+                <div class="card-header border-0">9
+                    <div class="form-group row ">
+                        <div class="col-3" style="text-align:right">
+                            <label asp-for="PROJECT_CODE"></label>
+                        </div>
+                        <div class="col-3">
+                            @Html.DropDownListFor(m => m.PROJECT_CODE, Model.PROJECT_CODE_LIST, "-Select  Project Code", new { @class = "form-control" })
+                            <span asp-validation-for="PROJECT_CODE" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-3" style="text-align:right">
+                            <label asp-for="SOURCE"></label>
+                        </div>
+
+                        <div class="col-3 style=" text-align:center"">
+                            <input asp-for="SOURCE" class=" form-control" />
+                            <span asp-validation-for="SOURCE" class="invalid-feedback" style="display: block"></span>
+                        </div>
+
+                        <div class="col-3">
+                            <button type="button" ID="Assignnew" class="btn btn-primary" onclick="Findfreedata()">Search</button>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group row ">
+                        <div class="col-12 border-bottom">
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-3" style="text-align:right">
+                            <label >Selected file</label>
+                        </div>
+                        <div class="col-6">
+                            <input  class="custom-file-input" id="customFile" />
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial">
+
+        <script>
+
+            function validateInput() {
+                if (document.getElementById("uploadBox").value == "") {
+                    swal("Error", "Please select an image", "error");
+                    return false;
+                }
+                return true;
+            };
+
+        </script>
+
+        <script type="text/javascript">
+            // Add the following code if you want the name of the file appear on select
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
+
+
+
+
+
+
+
+
+
+
+}

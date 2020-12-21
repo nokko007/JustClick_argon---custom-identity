@@ -5,6 +5,7 @@ using System.Text;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http;
 
 namespace JustClick.Models.ViewModels
 {
@@ -82,17 +83,31 @@ namespace JustClick.Models.ViewModels
         [MaxLength(30)]
     
         public string UserName { get; set; }
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
 
 
-   
-    
+
         public string Id { get; set; }
-    //
+        //
         [JsonProperty("tsr_picture")]
         [MaxLength(255)]
         [Display(Name = "Picture")]
         public string TSR_PICTURE { get; set; }
 
+
+        //
+ 
+        public IFormFile TSR_IMAGE { get; set; }
 
 
         [JsonProperty("license")]

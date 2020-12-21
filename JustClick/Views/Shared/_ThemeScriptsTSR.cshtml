@@ -1,0 +1,69 @@
+﻿
+
+
+<script language="javascript" type="text/javascript">
+    setInterval('setnode()', 60 * 1000);
+
+    $(document).ready(function () {
+
+        //document.getElementById("NEWCALLCNT").innerHTML = "0";
+        //document.getElementById("CALLBACKCNT").innerHTML = "0";
+        //document.getElementById("NOCONTACTCNT").innerHTML = "0";
+        //document.getElementById("FOLLOWUPCNT").innerHTML = "0";
+        //document.getElementById("FOLLOWDOCCNT").innerHTML = "0";
+        //document.getElementById("FOLLOWPAYCNT").innerHTML = "0";
+        //document.getElementById("REDETAILCNT").innerHTML = "0";
+
+        setnode();
+    });
+
+
+</script>
+
+<script type="text/javascript" language="javascript">
+
+    function setnode() {
+        $.ajax({
+
+            url: "/TSR/DataListTSR/Setnode",
+            datatype: "json",
+
+            success: function (data) {
+
+
+                var TSR_LOGINNAME = '';
+                var NEWCALLCNT = '';
+                var CALLBACKCNT = '';
+                var NOCONTACTCNT = '';
+                var FOLLOWUPCNT = '';
+                var FOLLOWDOCCNT = '';
+                var FOLLOWPAYCNT = '';
+                var REDETAILCNT = '';
+
+
+                for (var i = 0; i < data.data.length; i++) {
+
+
+                    TSR_LOGINNAME = data.data[i].TSR_LOGINNAME;
+                    NEWCALLCNT = data.data[i].NEWCALLCNT;
+                    CALLBACKCNT = data.data[i].CALLBACKCNT;
+                    NOCONTACTCNT = data.data[i].NOCONTACTCNT;
+                    FOLLOWUPCNT = data.data[i].FOLLOWUPCNT;
+                    FOLLOWDOCCNT = data.data[i].FOLLOWDOCCNT;
+                    FOLLOWPAYCNT = data.data[i].FOLLOWPAYCNT;
+                    REDETAILCNT = data.data[i].REDETAILCNT;
+
+          
+                    document.getElementById("NEWCALLCNT").innerHTML = NEWCALLCNT;
+                    document.getElementById("CALLBACKCNT").innerHTML = CALLBACKCNT;
+                    document.getElementById("NOCONTACTCNT").innerHTML = NOCONTACTCNT;
+                    document.getElementById("FOLLOWUPCNT").innerHTML = FOLLOWUPCNT;
+                    document.getElementById("FOLLOWDOCCNT").innerHTML = FOLLOWDOCCNT;
+                    document.getElementById("FOLLOWPAYCNT").innerHTML = FOLLOWPAYCNT;
+                    document.getElementById("REDETAILCNT").innerHTML = REDETAILCNT;
+                }
+
+            }
+        });
+    }
+</script>

@@ -10,8 +10,8 @@ namespace JustClick.Models
     {
 
         [Key]
-        [JsonProperty("Refusecode")]
-        public int RefuseCODE { get; set; }
+        [JsonProperty("refusecode")]
+        public int REFUSECODE { get; set; }
 
 
 
@@ -21,10 +21,10 @@ namespace JustClick.Models
         [MaxLength(10)]
         public string PROJECT_CODE { get; set; }
 
-        [Display(Name = "Non Target Reason")]
+        [Display(Name = "refuse Reason")]
         [Required]
         [MaxLength(50)]
-        [JsonProperty("Refusereason")]
-        public string RefuseREASON { get; set; }
+        [JsonProperty("refusereason")]
+        public string REFUSEREASON { get; set; }
     }
 }

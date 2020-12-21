@@ -20,12 +20,12 @@ namespace JustClick.DataAccess.Repository
         public void Update(RefuseModel Refuse)
         {
 
-            var objFromDb = _db.TBL_REFUSE.FirstOrDefault(s => s.RefuseCODE == Refuse.RefuseCODE);
+            var objFromDb = _db.TBL_REFUSE.FirstOrDefault(s => s.REFUSECODE == Refuse.REFUSECODE);
             if (objFromDb != null)
             {
                 objFromDb.PROJECT_CODE = Refuse.PROJECT_CODE;
 
-                objFromDb.RefuseREASON = Refuse.RefuseREASON;
+                objFromDb.REFUSEREASON = Refuse.REFUSEREASON;
 
 
             }

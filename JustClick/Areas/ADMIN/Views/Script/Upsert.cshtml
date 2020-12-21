@@ -1,0 +1,142 @@
+﻿
+
+@model JustClick.Models.ViewModels.ScriptVM
+
+@{
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Script";
+}
+
+
+
+
+<div class="row">
+    <div class="col">
+        <div class="card shadow">
+            <form method="post">
+
+                @*<div class="row p-3 border">*@
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                @if (Model.Script.SCRIPTID != 0)
+                {
+                    title = "Edit Script";
+                    <input type="hidden" asp-for="Script.SCRIPTID" />
+                }
+                <div class="card-header border-0">
+                    <br />
+                    <div class="row">
+                        <div class="col-12 border-bottom">
+                            <h2 class="text-primary">@title</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8 pt-4">
+
+                    <div class="form-group row">
+                        <div class="col-4">
+                            Project Code
+                        </div>
+                        <div class="col-8">
+                            @Html.DropDownListFor(m => m.Script.PROJECT_CODE, Model.PROJECT_CODE_LIST, "-Select a Project Code",
+                           new { @class = "form-control" })
+                            <span asp-validation-for="Script.PROJECT_CODE" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4">
+                            <label asp-for="Script.SCRIPTHEADER"></label>
+                        </div>
+
+                        <div class="col-8">
+                            <input asp-for="Script.SCRIPTHEADER" class=" form-control" />
+                            <span asp-validation-for="Script.SCRIPTHEADER" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="form-group row">
+                        <div class="col-4">
+                            <label asp-for="Script.SCRIPTDESC"></label>
+                        </div>
+
+                        <div class="col-8">
+                            <textarea rows="20" asp-for="Script.SCRIPTDESC" class="form-control"></textarea>
+                            <span asp-validation-for="Script.SCRIPTDESC" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="form-group row">
+                        <div class="col-8 offset-4">
+                            @if (Model.Script.SCRIPTID != 0)
+                            {
+
+
+                                <partial name="_EditAndBackToListButton" model="Model.Script.SCRIPTID" />
+                            }
+                            else
+                            {
+                                <partial name="_CreateAndBackToListButton" />
+                            }
+                        </div>
+                    </div>
+                </div>
+                @*</div>*@
+
+
+
+                @if (@ViewBag.Message != null)
+                {
+                    <script type="text/javascript">
+
+                        window.onload = function () {
+
+                                    swal({
+                                        title: "Warning",
+                                        text: "@Html.Raw( @ViewBag.Message)",
+                                        icon: "warning",
+                                        html: true,
+                                        dangerMode: true
+                                    })
+
+
+                                //swal("@ViewBag.Message");
+                            };
+                    </script>
+                }
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+
+    <script src="~/vendor/tinymce/tinymce.min.js"></script>
+    <script>
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'lists',
+            menubar: 'file edit format'
+        });
+    </script>
+
+}

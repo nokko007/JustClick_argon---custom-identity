@@ -35,52 +35,60 @@ namespace JustClick.Areas.ADMIN.Controllers
         }
 
 
-        public  IActionResult Upsert(int? id)
+        public IActionResult Upsert(int? id)
         {
 
 
-            ProjectConfigModel projectConfig = new ProjectConfigModel();
+            ProjectConfigVM projectConfigVM = new ProjectConfigVM();
             if (id == null)
             {
                 //creat
-                return View(projectConfig);
+                return View(projectConfigVM);
             }
 
             //edit
-            projectConfig = _unitOfWork.ProjectConfig.Get(id.GetValueOrDefault());
-            if (projectConfig == null)
+            projectConfigVM.projectConfigModel = _unitOfWork.ProjectConfig.Get(id.GetValueOrDefault());
+            if (projectConfigVM.projectConfigModel == null)
             {
                 return NotFound();
 
             }
 
 
-            return View(projectConfig);
+
+            projectConfigVM.TEXTENDDATE = projectConfigVM.projectConfigModel.ENDOFPROJECT.ToString("dd-MM-yyyy");
+
+
+         
+
+            return View(projectConfigVM);
 
 
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(ProjectConfigModel projectConfig)
+        public IActionResult Upsert(ProjectConfigVM projectConfigVM)
         {
             TempData["Duplicate"] = null;
             ViewBag.Message = null;
             if (ModelState.IsValid) 
 
             {
-                ProjectConfigModel projectConfigChkdup = _unitOfWork.ProjectConfig.GetFirstOrDefault(u =>  u.PROJECT_CODE == projectConfig.PROJECT_CODE );
+                ProjectConfigModel projectConfigChkdup = _unitOfWork.ProjectConfig.GetFirstOrDefault(u =>  u.PROJECT_CODE == projectConfigVM.projectConfigModel.PROJECT_CODE );
                 if (projectConfigChkdup == null)
                 //ไม่ dup
                 {
 
-                    if (projectConfig.URN == 0) // ไมได้ pass id มา ให้ insert
+                    if (projectConfigVM.projectConfigModel.URN == 0) // ไมได้ pass id มา ให้ insert
                     {
-                        _unitOfWork.ProjectConfig.Add(projectConfig);
+                        projectConfigVM.projectConfigModel.ENDOFPROJECT = Convert.ToDateTime(projectConfigVM.TEXTENDDATE);
+                        _unitOfWork.ProjectConfig.Add(projectConfigVM.projectConfigModel);
                     }
                     else// pass id มา ให้ update
                     {
-                        _unitOfWork.ProjectConfig.Update(projectConfig);
+                        projectConfigVM.projectConfigModel.ENDOFPROJECT = Convert.ToDateTime(projectConfigVM.TEXTENDDATE);
+                        _unitOfWork.ProjectConfig.Update(projectConfigVM.projectConfigModel);
                     }
                     _unitOfWork.Save();
                     return RedirectToAction(nameof(Index));
@@ -89,7 +97,7 @@ namespace JustClick.Areas.ADMIN.Controllers
                 {
 
 
-                    if (projectConfig.URN == 0 || projectConfig.PROJECT_CODE != projectConfigChkdup.PROJECT_CODE) // ไมได้ pass id มา ให้ insert
+                    if (projectConfigVM.projectConfigModel.URN == 0 || projectConfigVM.projectConfigModel.PROJECT_CODE != projectConfigChkdup.PROJECT_CODE) // ไมได้ pass id มา ให้ insert
                     {
                         
 
@@ -97,17 +105,23 @@ namespace JustClick.Areas.ADMIN.Controllers
                             {
                            
 
-                        if (projectConfig.URN != 0)
+                        if (projectConfigVM.projectConfigModel.URN != 0)
                             {
-                                projectConfig = _unitOfWork.ProjectConfig.Get(projectConfig.URN);
+                                projectConfigVM.projectConfigModel = _unitOfWork.ProjectConfig.Get(projectConfigVM.projectConfigModel.URN);
                             }
-                        }       
-                    return View(projectConfig);
+                        }
+
+                        if (projectConfigVM.projectConfigModel.ENDOFPROJECT != null)
+                        {
+                            projectConfigVM.TEXTENDDATE = projectConfigVM.projectConfigModel.ENDOFPROJECT.ToString("dd-mm-yyyy");
+                        }
+                        return View(projectConfigVM);
                     }
                     else  // pass id มา ให้ update
                     {
-                            _unitOfWork.ProjectConfig.Update(projectConfig);
-                            _unitOfWork.Save();
+                        projectConfigVM.projectConfigModel.ENDOFPROJECT = Convert.ToDateTime(projectConfigVM.TEXTENDDATE);
+                        _unitOfWork.ProjectConfig.Update(projectConfigVM.projectConfigModel);
+                        _unitOfWork.Save();
                             return RedirectToAction(nameof(Index));
                     }
 
@@ -119,15 +133,24 @@ namespace JustClick.Areas.ADMIN.Controllers
             {
 
 
-                if (projectConfig.URN != 0)
+                if (projectConfigVM.projectConfigModel.URN != 0)
                 {
-                    projectConfig = _unitOfWork.ProjectConfig.Get(projectConfig.URN);
+                    projectConfigVM.projectConfigModel = _unitOfWork.ProjectConfig.Get(projectConfigVM.projectConfigModel.URN);
                 }
-            }
-            return View(projectConfig);
-        }
-           
 
+            if (projectConfigVM.projectConfigModel.ENDOFPROJECT != null)
+                {
+                    projectConfigVM.TEXTENDDATE = projectConfigVM.projectConfigModel.ENDOFPROJECT.ToString("dd-mm-yyyy");
+                }
+
+            }
+
+
+           
+            return View(projectConfigVM);
+        }
+
+       
         #region API CALLS
 
         [HttpGet]

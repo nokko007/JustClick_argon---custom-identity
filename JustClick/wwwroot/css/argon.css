@@ -15,8 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-:root
-{
+:root {
     --blue: #5e72e4;
     --indigo: #5603ad;
     --purple: #8965e0;
@@ -16678,6 +16677,13 @@ a.text-lighter:focus
     margin-left: .75rem;
 }
 
+.avatar-xl {
+    font-size: .875rem;
+
+    width: 90px;
+    height: 90px;
+}
+
 .avatar-lg
 {
     font-size: .875rem; 
@@ -16693,6 +16699,8 @@ a.text-lighter:focus
     width: 36px;
     height: 36px;
 }
+
+
 
 .avatar-group .avatar
 {

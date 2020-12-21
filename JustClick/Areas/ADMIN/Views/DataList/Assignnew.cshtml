@@ -1,0 +1,408 @@
+﻿@model JustClick.Models.ViewModels.DataProfileViewModel
+
+
+@{ ViewData["Title"] = "Assign New Call"; }
+@{
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Assign New Call";
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+@*<link rel="stylesheet" href="/resources/demos/style.css">*@
+<style>
+
+
+
+    #sortable1, #sortable2 {
+        border: 1px solid #eee;
+        width: 95%;
+        min-height: 20px;
+        list-style-type: none;
+        margin: auto;
+        padding: 5px 0 0 0;
+        float: left;
+        margin-right: 10px;
+        height: 500px;
+        overflow: auto;
+    }
+
+
+
+        #sortable1 li {
+            margin: 0 5px 5px 5px;
+            /*            margin: auto;*/
+            padding: 5px;
+            /*            font-size: 1.2em;*/
+            width: 95%;
+        }
+
+        #sortable2 li {
+            margin: 0 5px 5px 5px;
+            /*            margin: auto;*/
+            padding: 5px;
+            /*            font-size: 1.2em;*/
+            width: 95%;
+            background: #ddffbf;
+        }
+</style>
+<!-- stat start here-->
+<!-- Card stats -->
+<div class="row">
+    <div class="col-xl-4 col-lg-3">
+        <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Total Data</h5>
+                        <span class="h2 font-weight-bold mb-0"> @Model.TOTALINDATABASE </span>
+                    </div>
+                    <div class="col-auto">
+                        <div class="icon icon-shape bg-gradient-indigo text-white rounded-circle shadow">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-3">
+        <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Transferred Data</h5>
+                        <span class="h2 font-weight-bold mb-0">@Model.TRANSFERDATA</span>
+                    </div>
+                    <div class="col-auto">
+                        <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-3">
+        <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Total Free Data</h5>
+                        <span class="h2 font-weight-bold mb-0">@Model.FREEDATA</span>
+                    </div>
+                    <div class="col-auto">
+                        <div class="icon icon-shape bg-gradient-success text-white rounded-circle shadow  ">
+                            <i class="fas fa-chart-area"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<!--criteria start here-->
+
+
+
+
+<div class="row mt-2">
+    <div class="col">
+        <div class="card shadow">
+            @*<form method="post">*@
+
+            <div class="card-header border-0">
+                <br />
+                <div class="row">
+                    <div class="col-12 border-bottom">
+                        <h2 class="text-primary">@title</h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <form method="post" OnSubmit="sendData()">
+                <div class="card-header border-0">
+                    <div class="form-group row ">
+                        <div class="col-3" style="text-align:right">
+                            <label asp-for="PROJECT_CODE"></label>
+                        </div>
+                        <div class="col-3">
+                            @Html.DropDownListFor(m => m.PROJECT_CODE, Model.PROJECT_CODE_LIST, "-Select  Project Code", new { @class = "form-control" })
+                            <span asp-validation-for="PROJECT_CODE" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-3" style="text-align:right">
+                            <label asp-for="SOURCE"></label>
+                        </div>
+
+                        <div class="col-3">
+                            @Html.DropDownListFor(m => m.SOURCE, Model.SOURCE_LIST, "-Select Source", new { @class = "form-control", @id = "ddlSource" })
+                            <span asp-validation-for="SOURCE" class="invalid-feedback" style="display: block"></span>
+                        </div>
+
+                        <div class="col-3">
+                            <button type="button" ID="Assignnew" class="btn btn-primary" onclick="Findfreedata()">Search</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group row ">
+                        <div class="col-3" style="text-align:right">
+                            <label asp-for="FREEDATABYCRITERIA"  > </label>
+                        </div>
+
+                        <div class="col-3">
+                            <input id="freedatabycriteria" asp-for="FREEDATABYCRITERIA" class=" form-control"  readonly />
+                            <span asp-validation-for="FREEDATABYCRITERIA" class="invalid-feedback" style="display: block"></span>
+
+                        </div>
+                        @*<div class="col-3 align-center" id="freedata">
+
+                            </div>*@
+                    </div>
+
+
+                    <div class="form-group row ">
+                        <div class="col-12 border-bottom">
+
+                        </div>
+                    </div>
+
+
+                    <!--no of list-->
+
+
+
+                    <div class="form-group row ">
+                        <div class="col-3 " style="text-align:right">
+                            <label> จำนวนลูกค้า /TSR 1 คน</label>
+                        </div>
+                        <div class="col-3 style=" text-align:center"">
+                            <input  id="rectotsr" asp-for="RECTOTSR" class=" form-control" />
+                            <span asp-validation-for="RECTOTSR" class="invalid-feedback" style="display: block"></span>
+                        </div>
+
+                        <div class="col-3">
+                            <button type="submit" ID="Assignnew" class="btn btn-danger">Transfer</button>
+                        </div>
+
+
+
+
+                    </div>
+
+
+
+                    <!--endno of list-->
+                    <!--tsr-->
+
+
+
+
+
+
+                    <div class="form-group row align-center">
+                        <div class="col-1 ">
+
+                        </div>
+
+
+                        <div class="col-5 align-right">
+                            <h4 class="text-primary text-center">รายชื่อพนักงาน TSR</h4>
+                            <ul id="sortable1" class="connectedSortable">
+                                @foreach (var item in Model.TSR_LIST)
+                                {
+                                    <li class="ui-state-default ">@item.Text</li>
+
+                                }
+                            </ul>
+                        </div>
+                        <div class="col-5 align-left">
+                            <h4 class="text-primary text-center">รายชื่อพนักงาน TSR ที่รับโอน</h4>
+
+
+
+                            <div class="col-5 style=" text-align:center"">
+                                <span asp-validation-for="TSR_SELECTEDLIST" class="invalid-feedback" style="display: block"></span>
+                            </div>
+
+                            <ul id="sortable2" class="connectedSortable">
+                            </ul>
+
+                            <div class="col-5 style=" text-align:center"">
+                                <input id="selectedtsr" class="text-white border-0" asp-for="TSR_SELECTEDLIST" />
+                            </div>
+
+
+                        </div>
+                        <div class="col-1 ">
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial">
+
+        @if (@ViewBag.Message != null)
+        {
+        <script type="text/javascript">
+
+                        window.onload = function () {
+
+                                    swal({
+                                        title: "Success",
+                                        text: "@Html.Raw( @ViewBag.Message)",
+                                        icon: "info",
+                                        html: true,
+                                        dangerMode: false
+                                    })
+
+
+                            $('#freedatabycriteria').val("");
+                            $('#rectotsr').val("");
+                            };
+        </script>
+        }
+
+
+
+
+
+
+
+
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+
+                $('#freedata').html("");
+
+
+                $('#ddlSource').change(function () {
+
+                    $('#freedatabycriteria').val("");
+
+
+                });
+
+
+            });
+
+
+        </script>
+
+        <script type="text/javascript" language="javascript">
+
+            function Findfreedata() {
+                $.ajax({
+
+                    url: "/Admin/DataList/Getdataprofile",
+                    data: { source: $('#ddlSource').val() },
+                    datatype: "json",
+
+                    success: function (data) {
+
+
+                        var free = '';
+
+                        for (var i = 0; i < data.data.length; i++) {
+
+                            free = free + data.data[i].FREEDATABYCRITERIA;
+                            $('#freedatabycriteria').val(free);
+                        }
+
+                    }
+                });
+            }
+        </script>
+
+        <script>
+            $(function () {
+                $("#sortable1, #sortable2").sortable({
+                    connectWith: ".connectedSortable"
+
+                }).disableSelection();
+            });
+
+
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <script type="text/javascript" language="javascript">
+
+            function sendData() {
+
+                var items = "";
+                $("#sortable2 li").map(function () {
+                    var t = this.innerText;
+                    var n = t.indexOf("=");
+                    var res = t.substring(0, n - 1);
+
+                    items = items + ',' + res;
+
+
+
+                });
+
+                $('#selectedtsr').val(items.substring(1, items.length));
+
+
+            }
+
+
+
+
+        </script>
+
+
+
+
+}

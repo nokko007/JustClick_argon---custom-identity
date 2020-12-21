@@ -1,0 +1,117 @@
+﻿
+
+@model JustClick.Models.ViewModels.RefuseVM
+
+@{
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Create Refuse Reason";
+}
+
+
+ 
+
+        <div class="row">
+            <div class="col">
+                <div class="card shadow">
+                    <form method="post">
+
+                        @*<div class="row p-3 border">*@
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        @if (Model.Refuse.REFUSECODE != 0)
+                        {
+                            title = "Edit Refuse Reason";
+                            <input type="hidden" asp-for="Refuse.REFUSECODE" />
+                        }
+                    <div class="card-header border-0">
+                        <br />
+                        <div class="row">
+                            <div class="col-12 border-bottom">
+                                <h2 class="text-primary">@title</h2>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="col-8 pt-4">
+
+                            <div class="form-group row" >
+                                <div class="col-4"style="text-align:right">
+                                    <label asp-for="Refuse.PROJECT_CODE" ></label>
+                                </div>
+                                <div class="col-8">
+                                    @Html.DropDownListFor(m => m.Refuse.PROJECT_CODE, Model.PROJECT_CODE_LIST, "-Select a Project Code",
+                                   new { @class = "form-control" })
+                                    <span asp-validation-for="Refuse.PROJECT_CODE" class="invalid-feedback" style="display: block"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-4"style="text-align:right">
+                                    <label asp-for="Refuse.REFUSEREASON"></label>
+                                </div>
+
+                                <div class="col-8">
+                                    <input asp-for="Refuse.REFUSEREASON" class=" form-control" />
+                                    <span asp-validation-for="Refuse.REFUSEREASON" class="invalid-feedback" style="display: block"></span>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="form-group row">
+                                <div class="col-8 offset-4">
+                                    @if (Model.Refuse.REFUSECODE != 0)
+                                    {
+
+
+                                        <partial name="_EditAndBackToListButton" model="Model.Refuse.REFUSECODE" />
+                                    }
+                                    else
+                                    {
+                                        <partial name="_CreateAndBackToListButton" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        @*</div>*@
+
+
+
+                        @if (@ViewBag.Message != null)
+                        {
+                            <script type="text/javascript">
+
+                        window.onload = function () {
+
+                                    swal({
+                                        title: "Warning",
+                                        text: "@Html.Raw( @ViewBag.Message)",
+                                        icon: "warning",
+                                        html: true,
+                                        dangerMode: true
+                                    })
+
+
+                                //swal("@ViewBag.Message");
+                            };
+                            </script>
+                        }
+</form>
+                </div>
+            </div>
+        </div>
+
+
+  
+
+
+
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+
+
+
+}

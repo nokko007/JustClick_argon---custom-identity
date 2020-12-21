@@ -1054,7 +1054,7 @@ var SalesChart = (function() {
 	};
 
 
-	// Events
+	// Events 
 
 	if ($chart.length) {
 		init($chart);

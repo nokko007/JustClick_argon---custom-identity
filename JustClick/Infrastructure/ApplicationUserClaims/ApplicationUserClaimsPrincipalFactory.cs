@@ -58,8 +58,26 @@ namespace JustClick.Infrastructure.ApplicationUserClaims
 
             }
 
+            if (!string.IsNullOrWhiteSpace(user.TSR_PICTURE))
+            {
 
 
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                    new Claim("TSR_PICTURE", user.TSR_PICTURE)
+                });
+
+            }
+            
+
+            if (!string.IsNullOrWhiteSpace(user.NormalizedUserName))
+            {
+
+
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                    new Claim("NormalizedUserName", user.NormalizedUserName)
+                });
+
+            }
 
             return principal;
         }

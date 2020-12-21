@@ -42,5 +42,10 @@ namespace JustClick.Models.Identity
          public string  PROJECT_CODE { get; set; }
 
 
+
+
+        [NotMapped]
+        public string RoleNames { get; set; }
+
     }
 }

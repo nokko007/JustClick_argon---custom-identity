@@ -1,0 +1,112 @@
+﻿@{ ViewData["Title"] = "Dashboard";
+  Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="row">
+    <partial name="_Header" />
+</div>
+<div class="row">
+    <partial name="~/Views/Shared/DashboardAdmin/_TopSale.cshtml" />
+</div>
+
+<div class="row">
+    <partial name="~/Views/Shared/DashboardAdmin/_SecondSale.cshtml" />
+</div>
+
+<div class="row ">
+    <div class="col-xl-4  mb-2 ">
+        <partial name="~/Views/Shared/DashboardAdmin/_MTDperformance.cshtml" />
+    </div>
+    <div class="col-xl-4  mb-2 ">
+        <partial name="~/Views/Shared/DashboardAdmin/_MTDperformancerenew.cshtml" />
+    </div>
+    <div class="col-xl-4  mb-2  ">
+        <partial name="~/Views/Shared/DashboardAdmin/_TODAYperformance.cshtml" />
+    </div>
+
+</div>
+
+
+
+<div class="row">
+    <div class="col-xl-12 mb-2 ">
+        <partial name="~/Views/Shared/DashboardAdmin/_AgentMonitoring.cshtml" />
+    </div>
+</div>
+
+
+<div class="row ">
+    <div class="col-xl-6  mb-2 ">
+        <partial name="~/Views/Shared/DashboardAdmin/_WeeklySale.cshtml" />
+    </div>
+    <div class="col-xl-6  mb-2 ">
+        <partial name="~/Views/Shared/DashboardAdmin/_DailySalebyTSR.cshtml" />
+    </div>
+
+
+</div>
+
+
+
+
+@section Scripts{
+
+    <script>
+
+        setInterval('talktime()', 60 * 1000);
+        //mtddetail ไม่ต้อง refresh
+        setInterval('retentioncurrent()', 60 * 1000);
+        setInterval('retentionprevious()', 60 * 1000);
+        setInterval('topsale()', 60 * 1000);
+        setInterval('secondsale()', 60 * 1000);
+        setInterval('mtdperformance()', 60 * 1000);
+        setInterval('mtdperformancerenew()', 60 * 1000);
+        setInterval('todayperformance()', 60 * 1000);
+        setInterval('agentmonitoring()', 10 * 1000);
+        setInterval('weeklysale()', 60 * 1000);
+        setInterval('dailysalebytsr()', 60 * 1000);
+
+
+
+
+
+        $(document).ready(function () {
+            talktime();
+            mtddetail();
+            retentioncurrent();
+            retentionprevious();
+            topsale();
+            secondsale();
+            mtdperformance();
+            mtdperformancerenew();
+            todayperformance();
+            agentmonitoring();
+            weeklysale();
+            dailysalebytsr();
+
+
+
+
+
+        });
+
+    </script>
+
+    <script src="~/js/dashboard/dashboard_chartoption.js"></script>
+    <script src="~/js/dashboard/dashboard_talktime.js"></script>
+    <script src="~/js/dashboard/dashboard_Mtddetail.js"></script>
+    <script src="~/js/dashboard/dashboard_retentioncurrent.js"></script>
+    <script src="~/js/dashboard/dashboard_retentionprevious.js"></script>
+    <script src="~/js/dashboard/dashboard_TopSale.js"></script>
+    <script src="~/js/dashboard/dashboard_SecondSale.js"></script>
+    <script src="~/js/dashboard/dashboard_mtdperformance.js"></script>
+    <script src="~/js/dashboard/dashboard_mtdperformancerenew.js"></script>
+    <script src="~/js/dashboard/dashboard_todayperformance.js"></script>
+    <script src="~/js/dashboard/dashboard_agentmonitoring.js"></script>
+    <script src="~/js/dashboard/dashboard_weeklysale.js"></script>
+    <script src="~/js/dashboard/dashboard_dailysalebytsr.js"></script>
+
+
+
+
+
+}

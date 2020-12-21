@@ -8,8 +8,10 @@ namespace JustClick.Models.ViewModels
 {
     public class ProjectConfigVM
     {
-      
-        public IEnumerable<ProjectConfigModel> PROJECT_CODE_LIST { get; set; }
+        [Required]
+        public string TEXTENDDATE { get; set; }
+
+        public ProjectConfigModel projectConfigModel { get; set; }
 
     }
 }

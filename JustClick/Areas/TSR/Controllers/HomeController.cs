@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using JustClick.Infrastructure;
 using JustClick.Infrastructure.ErrorHandling;
 using JustClick.DataAccess.Repository.IRepository;
+using JustClick.Utility;
 
 namespace JustClick.Controllers
 {
@@ -40,7 +41,17 @@ namespace JustClick.Controllers
         [HttpGet("/")]
         public IActionResult Index()
         {
-            return View();
+
+
+            if (User.IsInRole(SD.Role_TSR))
+            {
+                return LocalRedirect("/TSR/DashboardTSR");
+            }
+            else
+            {
+                return LocalRedirect("/Admin/Dashboard");
+            }
+            //return View();
         }
 
         [HttpGet("/icons")]
@@ -145,7 +156,20 @@ namespace JustClick.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(Index));
+
+                if (User.IsInRole(SD.Role_TSR))
+                {
+                    return LocalRedirect("/TSR/DashboardTSR");
+                }
+                else
+                {
+                    return LocalRedirect("/Admin/Dashboard");
+                }
+
+
+
+
+                //return RedirectToAction(nameof(Index));
             }
         }
 

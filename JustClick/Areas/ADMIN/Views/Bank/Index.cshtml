@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "Bank Name List";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col">
+        <div class="card shadow">
+            <div class="card-header border-0">
+
+                <br />
+                <div class="row">
+                    <div class="col-6">
+                        <h2 class="text-primary">  Bank Name List</h2>
+                    </div>
+                    <div class="col-6 text-right">
+                        <a class="btn btn-primary color text-white" asp-action="Upsert"><i class="fas fa-plus  "></i> Create Bank Name </a>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+
+
+
+            <div class="p-4 border rounded">
+
+                <table id="tblData" class="table align-items-center " style="width:100%">
+                    <thead class="thead-light">
+                        <tr class="table-info">
+
+                            <th>Project Code</th>
+                            <th>Bank Name </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script src="~/js/Bank.js"></script>
+}

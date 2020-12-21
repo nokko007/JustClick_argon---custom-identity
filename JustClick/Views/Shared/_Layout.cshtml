@@ -1,5 +1,11 @@
 ﻿@using JustClick.Utility
 
+@using Microsoft.AspNetCore.Identity;
+@using JustClick.Infrastructure.ApplicationUserClaims.Extensions
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,34 +17,66 @@
 </head>
 <body>
     @*<partial name="_GoogleTagManagerBodyElement" />*@
-    @if (User.IsInRole(SD.Role_Admin))
+
+
+    @if (SignInManager.IsSignedIn(User))
     {
-        <partial name="_Sidebar_ADMIN" />
+        @if (User.IsInRole(SD.Role_TSR))
+        {
+
+            <partial name="_Sidebar_TSR" />
+            <div class="main-content">
+                <partial name="_Header_TSR" />
+                @*<div class="container-fluid pt--7 mt-0 mb-0 pb-0   ">*@
+                <div class="container-fluid mt--7 bg-gradient-primary">
+                    @RenderBody()
+                    <partial name="_Footer" />
+                </div>
+            </div>
+
+        }
+        else
+
+        {
+            <partial name="_Sidebar_ADMIN" />
+            <div class="container-fluid pt-8 mt-0 mb-0 pb-0 bg-gradient-primary  ">
+                <!-- Page content -->
+                @RenderBody()
+                <partial name="_Footer" />
+            </div>
+
+
+        }
+
+
+
+
     }
-    @if (User.IsInRole(SD.Role_TSR))
+
+    else
     {
-        <partial name="_Sidebar" />
+    
+        <partial name="_SessionExpire" />
     }
-    @*<partial name="_Sidebar_ADMIN" />*@
-    <div class="main-content">
 
 
-        <partial name="_Navbar" />
 
-        @*<partial name="_Navbar_TSR" />
-            }*@
-
-        <partial name="_Header" />
-        <!-- Page content -->
-        <div class="container-fluid mt--7">
-            <!-- Page content -->
-            @RenderBody()
-            <partial name="_Footer" />
-        </div>
-    </div>
 
     <partial name="_ThemeScripts" />
 
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @if (User.IsInRole(SD.Role_TSR))
+        {
+
+
+            <partial name="_ThemeScriptsTSR" />
+        }
+
+
+
+    }
+
     @RenderSection("Scripts", required: false)
 </body>
-</html>
+        </html>

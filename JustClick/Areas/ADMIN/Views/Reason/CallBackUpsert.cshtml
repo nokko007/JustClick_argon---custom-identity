@@ -1,0 +1,141 @@
+﻿
+
+@model JustClick.Models.ViewModels.CallbackVM
+
+@{
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Create Callback Reason";
+}
+
+
+
+<div class="row">
+    <div class="col">
+        <div class="card shadow">
+            <form method="post">
+
+                @*<div class="row p-3 border">*@
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                @if (Model.Callback.CALLBACKCODE != 0)
+                {
+                    title = "Edit Callback Reason";
+                    <input type="hidden" asp-for="Callback.CALLBACKCODE" />
+                }
+                <div class="card-header border-0">
+                    <br />
+                    <div class="row">
+                        <div class="col-12 border-bottom">
+                            <h2 class="text-primary">@title</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8 pt-4">
+
+                    <div class="form-group row">
+                        <div class="col-4" style="text-align:right">
+                            <label asp-for="Callback.PROJECT_CODE"></label>
+                        </div>
+                        <div class="col-8">
+                            @Html.DropDownListFor(m => m.Callback.PROJECT_CODE, Model.PROJECT_CODE_LIST, "-Select a Project Code",
+                           new { @class = "form-control" })
+                            <span asp-validation-for="Callback.PROJECT_CODE" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4" style="text-align:right">
+                            <label asp-for="Callback.CALLBACKREASON"></label>
+                        </div>
+
+                        <div class="col-8">
+                            <input asp-for="Callback.CALLBACKREASON" class=" form-control" />
+                            <span asp-validation-for="Callback.CALLBACKREASON" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4" style="text-align:right">
+                            <label asp-for="Callback.NEEDTERMINATE"></label>
+                        </div>
+                        <div class="col-8">
+                            @Html.DropDownListFor(m => m.Callback.NEEDTERMINATE, Model.NEEDTERMINATE_LIST, "-Select value",
+                           new { @class = "form-control" })
+                            <span asp-validation-for="Callback.NEEDTERMINATE" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-8 offset-4">
+                            @if (Model.Callback.CALLBACKCODE != 0)
+                            {
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="submit" ID="CallBackUpsert" class="btn btn-primary form-control" asp-route-id="@Model.Callback.CALLBACKCODE">Update</button>
+                                    </div>
+                                    <div class="col">
+                                        <a asp-area="Admin" asp-controller="Reason" asp-action="CallBackIndex" class="btn btn-success form-control">Back to List</a>
+                                    </div>
+                                </div>
+
+
+
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="submit" ID="CallBackUpsert" class="btn btn-primary form-control" >Create</button>
+                                    </div>
+                                    <div class="col">
+                                        <a asp-area="Admin" asp-controller="Reason" asp-action="CallBackIndex" class="btn btn-success form-control">Back to List</a>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+                @*</div>*@
+
+
+
+                @if (@ViewBag.Message != null)
+                {
+                    <script type="text/javascript">
+
+                        window.onload = function () {
+
+                                    swal({
+                                        title: "Warning",
+                                        text: "@Html.Raw( @ViewBag.Message)",
+                                        icon: "warning",
+                                        html: true,
+                                        dangerMode: true
+                                    })
+
+
+                                //swal("@ViewBag.Message");
+                            };
+                    </script>
+                }
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+
+
+
+}

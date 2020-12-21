@@ -17,6 +17,7 @@ using JustClick.Utility;
 using System.DirectoryServices.Protocols;
 using Microsoft.Extensions.Configuration;
 using System.Net;
+using JustClick.Infrastructure;
 
 //using Novell.Directory.Ldap;
 
@@ -30,16 +31,21 @@ namespace JustClick.Areas.Identity.Pages.Account
         private readonly ILogger<LoginModel> _logger;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _configuration;
+        private UserManager<ApplicationUser> _userManager;
+        private readonly IGlobalFunction _globalFunction;
 
-
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, IUnitOfWork unitOfWork, IConfiguration configuration)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, IUnitOfWork unitOfWork, IConfiguration configuration, UserManager<ApplicationUser> userManager
+                    , IGlobalFunction globalFunction)
         {
             _unitOfWork = unitOfWork;
             _signInManager = signInManager;
             _logger = logger;
             _configuration = configuration;
-        }
+            _userManager = userManager;
+            _globalFunction = globalFunction;
 
+        }
+      
         [BindProperty]
         public InputModel Input { get; set; }
 
@@ -92,7 +98,7 @@ namespace JustClick.Areas.Identity.Pages.Account
             {
 
                 string domainName = "I-MIT";
-                string userDn = Input.Email;
+                string userDn = Input.Email.ToUpper();
 
 
                 //using (var connection = new LdapConnection { SecureSocketLayer = false })
@@ -107,27 +113,6 @@ namespace JustClick.Areas.Identity.Pages.Account
                     //var credential = new NetworkCredential(userDn, Input.Password, domainName);
                     //connection.Bind(credential);
 
-                
-
-
-                 
-
-                    var user = await _signInManager.UserManager.FindByNameAsync(userDn);
-
-                    if (user != null)
-                    {
-
-                        await _signInManager.SignInAsync(user,true);
-                    }
-
-
-
-
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
-                    
-
-
 
                 }
                 catch (LdapException ex)
@@ -137,21 +122,81 @@ namespace JustClick.Areas.Identity.Pages.Account
                     return Page();
                     //Authentication failed, exception will dictate why
                 }
-                //finally
-                //{
-              
-                //}
-            }
+
+                //for APP User
+                var result = await _signInManager.PasswordSignInAsync(userDn, Input.Password,false ,lockoutOnFailure: false);
+
+                if (result.Succeeded)
+               
+
+                {
+                //for AD User
+                var user = await _signInManager.UserManager.FindByNameAsync(userDn);
+                    if (user != null)
+                        {
+                          
+                            if (!user.ACCESSSTATUS)
+                            {
+                                ModelState.AddModelError(string.Empty, "Username ถูกระงับการใช้งาน");
+                                return Page();
+                            }
 
                 
+
+
+                            else
+                            {
+                                await _signInManager.SignInAsync(user, true);
+
+                                _logger.LogInformation("User logged in.");
+
+                            string startcalltime = _globalFunction.Getdatetime();
+
+
+
+                            _globalFunction.InsertLogin(userDn, user.RoleNames, user.EXT,user.PROJECT_CODE);
+                            _globalFunction.UpdateAgentmonitoring(userDn, "", startcalltime, "");
+
+                            //return LocalRedirect("/TSR/Home");
+
+                            //var roles = await _userManager.GetRolesAsync(user);
+                            return LocalRedirect(returnUrl);
+
+                            //if (User.IsInRole(SD.Role_TSR))
+
+                            //{
+                            //    return LocalRedirect("/TSR/DashboardTSR");
+                            //}
+                            //else
+                            //{
+                            //    return LocalRedirect("/Admin/Dashboard");
+                            //}
+
+                        }
+
+              
+                        }
+                        else 
+                
+                        {
+                            ModelState.AddModelError(string.Empty, "Username not found");
+                            return Page();
+
+                        }
+                }
+                  
+
+            }
+            
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return Page();
             
 
-
-            return Page();
+           
 
 
         }
-        /////////
+
     }
 
 }

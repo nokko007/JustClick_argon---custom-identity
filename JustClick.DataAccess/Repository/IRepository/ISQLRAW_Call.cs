@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,5 +19,7 @@ namespace JustClick.DataAccess.Repository.IRepository
         //Tuple<IEnumerable<T1>, IEnumerable<T2>> List<T1, T2>(string procedureName, DynamicParameters param = null);
 
         IEnumerable<T> Listraw<T>(string sqlstr, DynamicParameters param = null);
+ 
+
     }
 }

@@ -16,6 +16,8 @@ namespace JustClick.DataAccess.Data
         {
         }
 
+   
+
         //protected override void OnModelCreating(ModelBuilder builder)
         //{
         //    base.OnModelCreating(builder);
@@ -49,5 +51,22 @@ namespace JustClick.DataAccess.Data
 
         public DbSet<RefuseModel> TBL_REFUSE { get; set; }
 
+
+        public DbSet<SuccessModel> TBL_SUCCESS { get; set; }
+
+        public DbSet<CallbackModel> TBL_CALLBACK { get; set; }
+        public DbSet<FailModel> TBL_FAIL { get; set; }
+
+        public DbSet<IDCardTypeModel> TBL_IDCARD { get; set; }
+
+        public DbSet<BankModel> TBL_BANK { get; set; }
+
+        public DbSet<ScriptModel> TBL_SCRIPT { get; set; }
+
+        public DbSet<IntranetModel> TBL_INTRANET { get; set; }
+
     }
+
+   
+
 }

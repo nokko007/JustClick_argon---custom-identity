@@ -10,7 +10,7 @@ using JustClick.DataAccess.Data;
 using JustClick.DataAccess.Repository.IRepository;
 using JustClick.Infrastructure;
 using JustClick.Infrastructure.ApplicationUserClaims;
-using JustClick.Infrastructure.ApplicationUserClaims.Extensions;
+
 using JustClick.Infrastructure.AppSettingsModels;
 using JustClick.Models.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
-using Microsoft.AspNetCore.Server.IISIntegration;
+
 
 namespace JustClick
 {
@@ -60,6 +60,19 @@ namespace JustClick
                 options.UseSqlServer(Configuration.GetConnectionString("LocalDbConnection"));
             });
 
+
+            services.AddDbContext<ApplicationDbContextRenew>(options =>
+            {
+                // The easiest option for development outside a container is to use SQLite
+                // options.UseSqlite(Configuration.GetConnectionString("SqliteConnection"));
+                // Or use this for PostgreSQL:
+
+                //options.UseNpgsql(Configuration.GetConnectionString("PostgresConnection"));
+                // Or use this for SQL Server (if running on Windows):
+                options.UseSqlServer(Configuration.GetConnectionString("LocalDbConnectionRenew"));
+            });
+
+
             //services.AddDefaultIdentity<ApplicationUser>()
             //    .AddRoles<IdentityRole>()
             //    //.AddDefaultUI(UIFramework.Bootstrap4)
@@ -77,8 +90,14 @@ namespace JustClick
             //services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
             //.AddEntityFrameworkStores<ApplicationDbContext>();
 
-
+            /// interface file 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<IGlobalFunction, GlobalFunction>();
+            services.AddScoped<IReasonFunction, ReasonFunction>();
+            services.AddScoped<IProjectConfigFunction, ProjectConfigFunction>();
+
+
             //services.AddScoped<IDbInitializer, DbInitializer>();
             services.Configure<IdentityOptions>(options =>
             {
@@ -88,12 +107,12 @@ namespace JustClick
                 options.Lockout.AllowedForNewUsers = true;
 
                 // Default Password settings.
-                //options.Password.RequireDigit = true;
-                //options.Password.RequireLowercase = true;
-                //options.Password.RequireNonAlphanumeric = true;
-                //options.Password.RequireUppercase = true;
-                //options.Password.RequiredLength = 6;
-                //options.Password.RequiredUniqueChars = 1;
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
 
                 // Default SignIn settings.
                 options.SignIn.RequireConfirmedEmail = false;
@@ -124,7 +143,7 @@ namespace JustClick
             {
                 options.AccessDeniedPath = "/access-denied";
                 options.LoginPath = "/login";
-                options.LogoutPath = "/logout";
+                options.LogoutPath = "/Logout";
 
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
             });
@@ -157,10 +176,10 @@ namespace JustClick
                     new PageRouteTransformerConvention(
                         new SlugifyParameterTransformer()));
 
-                options.Conventions.AddAreaPageRoute("Identity", "/Account/Register", "/register");
+                // options.Conventions.AddAreaPageRoute("Identity", "/Account/Register","/register");
                 options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "/login");
-                options.Conventions.AddAreaPageRoute("Identity", "/Account/Logout", "/logout");
-                options.Conventions.AddAreaPageRoute("Identity", "/Account/ForgotPassword", "/forgot-password");
+                // options.Conventions.AddAreaPageRoute("Identity", "/Account/Logout", "/Logout");
+                // options.Conventions.AddAreaPageRoute("Identity", "/Account/ForgotPassword", "/forgot-password");
             }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddSessionStateTempDataProvider();
 
@@ -171,7 +190,7 @@ namespace JustClick
             services.AddSession(options =>
             {
                 // Set a short timeout for easy testing.
-                options.IdleTimeout = TimeSpan.FromMinutes(60);
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.Cookie.Name = "Justclick.Netcore.SessionCookie";
                 // You might want to only set the application cookies over a secure connection:>
                 // options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
@@ -215,18 +234,36 @@ namespace JustClick
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+          
 
             app.UseAuthentication();
+            app.UseCookiePolicy();
 
             app.UseSession();
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{area=TSR}/{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "{area=TSR}/{controller=Home}/{action=Index}/{id?}");
+
+
+
+                endpoints.MapAreaControllerRoute(
+                     name: "Admin",
+                     areaName: "Admin",
+                     pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}"
+                    );
+
+                endpoints.MapAreaControllerRoute(
+                    name: "TSR",
+                    areaName: "TSR",
+                    pattern: "TSR/{controller=DashboardTSR}/{action=Index}/{id?}"
+                   );
+
+
+
                 endpoints.MapRazorPages();
             });
             //app.UseMvc(routes =>

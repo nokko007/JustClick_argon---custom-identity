@@ -31,54 +31,54 @@ namespace JustClick.Models
         public string OWNER { get; set; }
 
         [JsonProperty("script_1")]
-        [Required]
+        //[Required]
         [Display(Name = "บทเปิดตัว")]
        
         public string SCRIPT_1 { get; set; }
 
         [JsonProperty("script_2")]
-        [Required]
+        //[Required]
         [Display(Name = "ลูกค้าไม่อยู่/ไม่สะดวกคุย")]
         public string SCRIPT_2 { get; set; }
 
         [JsonProperty("script_3")]
 
-        [Required]
+        //[Required]
         [Display(Name = "ลูกค้าไม่สนใจ")]
         public string SCRIPT_3 { get; set; }
 
         [JsonProperty("script_4")]
-        [Required]
+        //[Required]
         [Display(Name = "Legal (บัตรเครดิต/รายปี)")]
         public string SCRIPT_4 { get; set; }
 
         [JsonProperty("script_5")]
-        [Required]
+        //[Required]
         [Display(Name = "Legal (บัตรเครดิต/ราย 4 เดือน)")]
         public string SCRIPT_5 { get; set; }
 
         [JsonProperty("script_6")]
-        [Required]
+        //[Required]
         [Display(Name = "Legal (โอนเงิน/รายปี)")]
         public string SCRIPT_6 { get; set; }
 
         [JsonProperty("script_7")]
-        [Required]
+        //[Required]
         [Display(Name = "Legal (บัตรเครดิต/ราย 6 เดือน")]
         public string SCRIPT_7 { get; set; }
 
         [JsonProperty("script_8")]
-        [Required]
+        //[Required]
         [Display(Name = "Legal (โอนเงิน/ราย 4 เดือน)")]
         public string SCRIPT_8 { get; set; }
 
         [JsonProperty("script_9")]
-        [Required]
+        //[Required]
         [Display(Name = "Legal (โอนเงิน/ราย 6 เดือน)")]
         public string SCRIPT_9 { get; set; }
 
         [JsonProperty("script_10")]
-        [Required]
+        //[Required]
         [Display(Name = "(บัตรเครดิต/ราย 12 เดือน)")]
         public string SCRIPT_10 { get; set; }
 
@@ -101,8 +101,9 @@ namespace JustClick.Models
         [Required]
         [Display(Name = "ENDOFPROJECT")]
         //[DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{yyyy-MM-dd}")]
-        public DateTime? ENDOFPROJECT { get; set; }
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        // ApplyFormatInEditMode = true)]
+        public DateTime ENDOFPROJECT { get; set; }
 
 
         //[JsonProperty("dcrs")]

@@ -1,9 +1,9 @@
-﻿@model JustClick.Models.ProjectConfigModel
-
+﻿@*@model JustClick.Models.ProjectConfigModel*@
+@model JustClick.Models.ViewModels.ProjectConfigVM
 @{
 
     //Layout = "~/Views/Shared/_Layout.cshtml";
-    var title = "Create Credit Card Type";
+    var title = "Project Config.";
 }
 
 
@@ -18,10 +18,10 @@
                 @*<div class="row p-3 border">*@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                @if (Model.URN != 0)
+                @if (Model.projectConfigModel.URN != 0)
                 {
                     title = "Edit Project";
-                    <input type="hidden" asp-for="URN" />
+                    <input type="hidden" asp-for="projectConfigModel.URN" />
                 }
 
 
@@ -41,12 +41,12 @@
 
                     <div class="form-group row">
                         <div class="col-4" style="text-align:right">
-                            <label asp-for="PROJECT_CODE"></label>
+                            <label asp-for="projectConfigModel.PROJECT_CODE"></label>
                         </div>
 
                         <div class="col-8">
-                            <input asp-for="PROJECT_CODE" class=" form-control" />
-                            <span asp-validation-for="PROJECT_CODE" class="invalid-feedback" style="display: block"></span>
+                            <input asp-for="projectConfigModel.PROJECT_CODE" class=" form-control" />
+                            <span asp-validation-for="projectConfigModel.PROJECT_CODE" class="invalid-feedback" style="display: block"></span>
                         </div>
                     </div>
 
@@ -55,207 +55,187 @@
 
                     <div class="form-group row">
                         <div class="col-4" style="text-align:right">
-                            <label asp-for="PROJECT_NAME"></label>
+                            <label asp-for="projectConfigModel.PROJECT_NAME"></label>
                         </div>
 
                         <div class="col-8">
-                            <input asp-for="PROJECT_NAME" class=" form-control" />
-                            <span asp-validation-for="PROJECT_NAME" class="invalid-feedback" style="display: block"></span>
+                            <input asp-for="projectConfigModel.PROJECT_NAME" class=" form-control" />
+                            <span asp-validation-for="projectConfigModel.PROJECT_NAME" class="invalid-feedback" style="display: block"></span>
                         </div>
                     </div>
 
 
                     <div class="form-group row">
                         <div class="col-4" style="text-align:right">
-                            <label asp-for="OWNER"></label>
+                            <label asp-for="projectConfigModel.OWNER"></label>
                         </div>
 
                         <div class="col-8">
-                            <input asp-for="OWNER" class=" form-control" />
-                            <span asp-validation-for="OWNER" class="invalid-feedback" style="display: block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-
-                        <div class="col-4" style="text-align:right">
-                            <label asp-for="ENDOFPROJECT"></label>
-                        </div>
-
-                        <div class="col-8">
-                            <input class="form-control datepicker" asp-for="ENDOFPROJECT" type="text" placeholder="Select date" />
-                            <span asp-validation-for="ENDOFPROJECT" class="invalid-feedback" style="display: block"></span>
-                        </div>
-
-
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-4" style="text-align:right">
-                            <label asp-for="SCRIPT_1"></label>
-                        </div>
-                        <div class="col-8 ">
-                            <textarea rows="20" asp-for="SCRIPT_1" class="form-control"></textarea>
-                            <span asp-validation-for="SCRIPT_1" class="invalid-feedback" style="display: block"></span>
+                            <input asp-for="projectConfigModel.OWNER" class=" form-control" />
+                            <span asp-validation-for="projectConfigModel.OWNER" class="invalid-feedback" style="display: block"></span>
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <div class="col-4" style="text-align:right">
-                            <label asp-for="SCRIPT_2"></label>
-                        </div>
 
-                        <div class="col-8">
-                            <textarea rows="20" asp-for="SCRIPT_2" class="form-control"></textarea>
-                            <span asp-validation-for="SCRIPT_2" class="invalid-feedback" style="display: block"></span>
-                        </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <div class="col-4" style="text-align:right">
-                            <label asp-for="SCRIPT_3"></label>
-                        </div>
-                        <div class="col-8">
-                            <textarea rows="20" asp-for="SCRIPT_3" class="form-control"></textarea>
-                            <span asp-validation-for="SCRIPT_3" class="invalid-feedback" style="display: block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-4" style="text-align:right">
-                            <label asp-for="SCRIPT_4"></label>
-                        </div>
-                        <div class="col-8">
-                            <textarea rows="20" asp-for="SCRIPT_4" class="form-control"></textarea>
-                            <span asp-validation-for="SCRIPT_4" class="invalid-feedback" style="display: block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-4" style="text-align:right">
-                            <label asp-for="SCRIPT_5"></label>
-                        </div>
-                        <div class="col-8">
-                            <textarea rows="20" asp-for="SCRIPT_5" class="form-control"></textarea>
-                            <span asp-validation-for="SCRIPT_5" class="invalid-feedback" style="display: block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-4" style="text-align:right">
-                            <label asp-for="SCRIPT_6"></label>
-                        </div>
-                        <div class="col-8">
-                            <textarea rows="20" asp-for="SCRIPT_6" class="form-control"></textarea>
-                            <span asp-validation-for="SCRIPT_6" class="invalid-feedback" style="display: block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-4" style="text-align:right">
-                            <label asp-for="SCRIPT_7"></label>
-                        </div>
-                        <div class="col-8">
+                    @* <div class="form-group row">
+            <div class="col-4" style="text-align:right">
+                <label asp-for="SCRIPT_2"></label>
+            </div>
 
-                            <textarea rows="20" asp-for="SCRIPT_7" class="form-control"></textarea>
-                            <span asp-validation-for="SCRIPT_7" class="invalid-feedback" style="display: block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-4" style="text-align:right">
-                            <label asp-for="SCRIPT_8"></label>
-                        </div>
-                        <div class="col-8">
-                            <textarea rows="20" asp-for="SCRIPT_8" class="form-control"></textarea>
-                            <span asp-validation-for="SCRIPT_8" class="invalid-feedback" style="display: block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-4" style="text-align:right">
-                            <label asp-for="SCRIPT_9"></label>
-                        </div>
-                        <div class="col-8">
-                            <textarea rows="20" asp-for="SCRIPT_9" class="form-control"></textarea>
-                            <span asp-validation-for="SCRIPT_9" class="invalid-feedback" style="display: block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-4" style="text-align:right">
-                            <label asp-for="SCRIPT_10"></label>
-                        </div>
-                        <div class="col-8">
-                            <textarea rows="20" asp-for="SCRIPT_10" class="form-control"></textarea>
-                            <span asp-validation-for="SCRIPT_10" class="invalid-feedback" style="display: block"></span>
-                        </div>
-                    </div>
+            <div class="col-8">
+                <textarea rows="20" asp-for="SCRIPT_2" class="form-control"></textarea>
+                <span asp-validation-for="SCRIPT_2" class="invalid-feedback" style="display: block"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4" style="text-align:right">
+                <label asp-for="SCRIPT_3"></label>
+            </div>
+            <div class="col-8">
+                <textarea rows="20" asp-for="SCRIPT_3" class="form-control"></textarea>
+                <span asp-validation-for="SCRIPT_3" class="invalid-feedback" style="display: block"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4" style="text-align:right">
+                <label asp-for="SCRIPT_4"></label>
+            </div>
+            <div class="col-8">
+                <textarea rows="20" asp-for="SCRIPT_4" class="form-control"></textarea>
+                <span asp-validation-for="SCRIPT_4" class="invalid-feedback" style="display: block"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4" style="text-align:right">
+                <label asp-for="SCRIPT_5"></label>
+            </div>
+            <div class="col-8">
+                <textarea rows="20" asp-for="SCRIPT_5" class="form-control"></textarea>
+                <span asp-validation-for="SCRIPT_5" class="invalid-feedback" style="display: block"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4" style="text-align:right">
+                <label asp-for="SCRIPT_6"></label>
+            </div>
+            <div class="col-8">
+                <textarea rows="20" asp-for="SCRIPT_6" class="form-control"></textarea>
+                <span asp-validation-for="SCRIPT_6" class="invalid-feedback" style="display: block"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4" style="text-align:right">
+                <label asp-for="SCRIPT_7"></label>
+            </div>
+            <div class="col-8">
+
+                <textarea rows="20" asp-for="SCRIPT_7" class="form-control"></textarea>
+                <span asp-validation-for="SCRIPT_7" class="invalid-feedback" style="display: block"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4" style="text-align:right">
+                <label asp-for="SCRIPT_8"></label>
+            </div>
+            <div class="col-8">
+                <textarea rows="20" asp-for="SCRIPT_8" class="form-control"></textarea>
+                <span asp-validation-for="SCRIPT_8" class="invalid-feedback" style="display: block"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4" style="text-align:right">
+                <label asp-for="SCRIPT_9"></label>
+            </div>
+            <div class="col-8">
+                <textarea rows="20" asp-for="SCRIPT_9" class="form-control"></textarea>
+                <span asp-validation-for="SCRIPT_9" class="invalid-feedback" style="display: block"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4" style="text-align:right">
+                <label asp-for="SCRIPT_10"></label>
+            </div>
+            <div class="col-8">
+                <textarea rows="20" asp-for="SCRIPT_10" class="form-control"></textarea>
+                <span asp-validation-for="SCRIPT_10" class="invalid-feedback" style="display: block"></span>
+            </div>
+        </div>*@
 
 
 
                     <div class="form-group row">
                         <div class="col-4" style="text-align:right">
-                            <label asp-for="WARNINGCALL"></label>
+                            <label asp-for="projectConfigModel.WARNINGCALL"></label>
                         </div>
 
                         <div class="col-8">
-                            <input asp-for="WARNINGCALL" class=" form-control" />
-                            <span asp-validation-for="WARNINGCALL" class="invalid-feedback" style="display: block"></span>
+                            <input asp-for="projectConfigModel.WARNINGCALL" class=" form-control" />
+                            <span asp-validation-for="projectConfigModel.WARNINGCALL" class="invalid-feedback" style="display: block"></span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-4" style="text-align:right">
-                            <label asp-for="MAXCALL"></label>
+                            <label asp-for="projectConfigModel.MAXCALL"></label>
                         </div>
 
                         <div class="col-8">
-                            <input asp-for="MAXCALL" class=" form-control" />
-                            <span asp-validation-for="MAXCALL" class="invalid-feedback" style="display: block"></span>
+                            <input asp-for="projectConfigModel.MAXCALL" class=" form-control" />
+                            <span asp-validation-for="projectConfigModel.MAXCALL" class="invalid-feedback" style="display: block"></span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-4" style="text-align:right">
-                            <label asp-for="MAXCALLBACK"></label>
+                            <label asp-for="projectConfigModel.MAXCALLBACK"></label>
                         </div>
 
                         <div class="col-8">
-                            <input asp-for="MAXCALLBACK" class=" form-control" />
-                            <span asp-validation-for="MAXCALLBACK" class="invalid-feedback" style="display: block"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-4" style="text-align:right">
-                            <label asp-for="MAXNOCONTACT"></label>
-                        </div>
-
-                        <div class="col-8">
-                            <input asp-for="MAXNOCONTACT" class=" form-control" />
-                            <span asp-validation-for="MAXNOCONTACT" class="invalid-feedback" style="display: block"></span>
+                            <input asp-for="projectConfigModel.MAXCALLBACK" class=" form-control" />
+                            <span asp-validation-for="projectConfigModel.MAXCALLBACK" class="invalid-feedback" style="display: block"></span>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-4" style="text-align:right">
-                            <label asp-for="PATHREPORT"></label>
+                            <label asp-for="projectConfigModel.MAXNOCONTACT"></label>
                         </div>
 
                         <div class="col-8">
-                            <input asp-for="PATHREPORT" class=" form-control" />
-                            <span asp-validation-for="PATHREPORT" class="invalid-feedback" style="display: block"></span>
+                            <input asp-for="projectConfigModel.MAXNOCONTACT" class=" form-control" />
+                            <span asp-validation-for="projectConfigModel.MAXNOCONTACT" class="invalid-feedback" style="display: block"></span>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-4" style="text-align:right">
-                            <label asp-for="PBXIP"></label>
+                            <label asp-for="projectConfigModel.PATHREPORT"></label>
                         </div>
 
                         <div class="col-8">
-                            <input asp-for="PBXIP" class=" form-control" />
-                            <span asp-validation-for="PBXIP" class="invalid-feedback" style="display: block"></span>
+                            <input asp-for="projectConfigModel.PATHREPORT" class=" form-control" />
+                            <span asp-validation-for="projectConfigModel.PATHREPORT" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4" style="text-align:right">
+                            <label asp-for="projectConfigModel.PBXIP"></label>
+                        </div>
+
+                        <div class="col-8">
+                            <input asp-for="projectConfigModel.PBXIP" class=" form-control" />
+                            <span asp-validation-for="projectConfigModel.PBXIP" class="invalid-feedback" style="display: block"></span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-4" style="text-align:right">
-                            <label asp-for="SP_STATUS"></label>
+                            <label asp-for="projectConfigModel.SP_STATUS"></label>
                         </div>
 
                         <div class="col-8">
-                            <input asp-for="SP_STATUS" class=" form-control" />
-                            <span asp-validation-for="SP_STATUS" class="invalid-feedback" style="display: block"></span>
+                            <input asp-for="projectConfigModel.SP_STATUS" class=" form-control" />
+                            <span asp-validation-for="projectConfigModel.SP_STATUS" class="invalid-feedback" style="display: block"></span>
                         </div>
                     </div>
 
@@ -263,22 +243,80 @@
 
 
 
+                    <div class="form-group row">
+
+                        <div class="col-4" style="text-align:right">
+                            <label asp-for="projectConfigModel.ENDOFPROJECT"></label>
+                        </div>
+
+                        <div class="col-8">
+                            <input id="datepicker" asp-for="TEXTENDDATE" class="form-control datepicker" data-date-format="dd/mm/yyyy" />
 
 
 
 
+                            <span asp-validation-for="TEXTENDDATE" class="invalid-feedback" style="display: block"></span>
+                        </div>
+
+
+                    </div>
 
 
 
 
+                    <div class="card shadow">
+                        <div class="card-body">
+
+                            <div class="nav-wrapper">
+                                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i> <label asp-for="projectConfigModel.SCRIPT_1"></label></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i> <label asp-for="projectConfigModel.SCRIPT_2"></label></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-calendar-grid-58 mr-2"></i> <label asp-for="projectConfigModel.SCRIPT_3"></label></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                                    @*<div class="col-8">*@
+                                        <textarea rows="20" asp-for="projectConfigModel.SCRIPT_1" class="form-control"></textarea>
+                                        <span asp-validation-for="projectConfigModel.SCRIPT_1" class="invalid-feedback" style="display: block"></span>
+                                    @*</div>*@
+                                </div>
+                                <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                                    @*<div class="col-8">*@
+                                        <textarea rows="20" asp-for="projectConfigModel.SCRIPT_2" class="form-control"></textarea>
+                                        <span asp-validation-for="projectConfigModel.SCRIPT_2" class="invalid-feedback" style="display: block"></span>
+                                    @*</div>*@
+                                </div>
+                                <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+                                    @*<div class="col-8">*@
+                                        <textarea rows="20" asp-for="projectConfigModel.SCRIPT_3" class="form-control"></textarea>
+                                        <span asp-validation-for="projectConfigModel.SCRIPT_3" class="invalid-feedback" style="display: block"></span>
+                                    @*</div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <br />
+                    <br />
 
                     <div class="form-group row">
                         <div class="col-8 offset-4">
-                            @if (Model.URN != 0)
+                            @if (Model.projectConfigModel.URN != 0)
                             {
 
 
-                                <partial name="_EditAndBackToListButton" model="Model.URN" />
+                                <partial name="_EditAndBackToListButton" model="Model.projectConfigModel.URN" />
                             }
                             else
                             {
@@ -299,6 +337,9 @@
     <partial name="_ValidationScriptsPartial" />
 
     <script src="~/vendor/tinymce/tinymce.min.js"></script>
+
+    <script src="~/lib/pickadate.js-3.6.2/picker.js"></script>
+
 
     <script>
 
@@ -334,7 +375,26 @@
                 tinyMCE.triggerSave();
             });
         </script>
-
-
     }
+
+    @*<script>
+            $(function () {
+                $("#datepicker").datepicker();
+            });
+        </script>*@
+
+    <script>
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',
+                todayBtn: true,
+                language: 'th',             //เปลี่ยน label ต่างของ ปฏิทิน ให้เป็น ภาษาไทย   (ต้องใช้ไฟล์ bootstrap-datepicker.th.min.js นี้ด้วย)
+                thaiyear: true              //Set เป็นปี พ.ศ.
+            }).datepicker("setDate", "0");  //กำหนดเป็นวันปัจุบัน
+        });
+    </script>
+
+
+
+
 }

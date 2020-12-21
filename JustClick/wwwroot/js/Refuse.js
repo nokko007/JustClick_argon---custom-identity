@@ -18,9 +18,9 @@ function loadDataTable() {
         },
         "columns": [
             { "data": "project_code", "width": "40%" },
-            { "data": "Refusereason", "width": "40%" },
+            { "data": "refusereason", "width": "40%" },
             {
-                "data": "Refusecode",
+                "data": "refusecode",
                 "render": function (data) {
                     return `
                           

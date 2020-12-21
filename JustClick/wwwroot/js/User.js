@@ -35,7 +35,7 @@ function loadDataTable() {
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-xl dropdown-menu-arrow">
-                                                <a href= "/Admin/User/Create/${data}" class="dropdown-item">Edit</a>
+                                                <a href= "/Admin/User/Upsert/${data}" class="dropdown-item">Edit</a>
                                                 <a onclick=Delete("/Admin/User/Delete/${data}") class="dropdown-item">Delete</a>
                                             </div>
                                         </div>

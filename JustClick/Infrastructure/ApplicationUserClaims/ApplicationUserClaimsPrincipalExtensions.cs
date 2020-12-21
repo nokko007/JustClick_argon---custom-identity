@@ -22,8 +22,19 @@ namespace JustClick.Infrastructure.ApplicationUserClaims.Extensions
             var ext = principal.Claims.FirstOrDefault(c => c.Type == "EXT");
             return ext?.Value;
         }
-      
 
+        public static string GetPicture(this ClaimsPrincipal principal)
+        {
+            var tsr_picture = principal.Claims.FirstOrDefault(c => c.Type == "TSR_PICTURE");
+            return tsr_picture?.Value;
+        }
+
+
+        public static string GetUserName(this ClaimsPrincipal principal)
+        {
+            var username = principal.Claims.FirstOrDefault(c => c.Type == "NormalizedUserName");
+            return username?.Value;
+        }
         // You can add other extension methods here to access user properties exposed
         // via the ApplicationUserClaimsPrincipalFactory class
 

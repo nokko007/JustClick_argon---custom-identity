@@ -8,18 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\ADMIN\zz-Unuse\**" />
     <Compile Remove="Areas\Identity\View\**" />
     <Compile Remove="Data\**" />
     <Compile Remove="Models\**" />
     <Compile Remove="ViewComponents\**" />
+    <Content Remove="Areas\ADMIN\zz-Unuse\**" />
     <Content Remove="Areas\Identity\View\**" />
     <Content Remove="Data\**" />
     <Content Remove="Models\**" />
     <Content Remove="ViewComponents\**" />
+    <EmbeddedResource Remove="Areas\ADMIN\zz-Unuse\**" />
     <EmbeddedResource Remove="Areas\Identity\View\**" />
     <EmbeddedResource Remove="Data\**" />
     <EmbeddedResource Remove="Models\**" />
     <EmbeddedResource Remove="ViewComponents\**" />
+    <None Remove="Areas\ADMIN\zz-Unuse\**" />
     <None Remove="Areas\Identity\View\**" />
     <None Remove="Data\**" />
     <None Remove="Models\**" />
@@ -33,9 +37,73 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\ADMIN\Views\Dashboard\Index _20200820.cshtml" />
     <Content Remove="Areas\ADMIN\Views\User\Update.cshtml" />
     <Content Remove="Areas\Identity\Pages\Account\ForgotPassword.cshtml" />
     <Content Remove="Areas\Identity\Pages\Account\Register.cshtml" />
+    <Content Remove="Views\Shared\_Sidebar_ADMIN2020-06-05.cshtml" />
+    <Content Remove="wwwroot\js\dashboard\dashboard_admin.js" />
+    <Content Remove="wwwroot\js\dashboard\dashboard_mtdperformance_line.js" />
+    <Content Remove="wwwroot\js\dashboard\dashboard_mtdperformance_stacked.js" />
+    <Content Remove="wwwroot\js\dashboard\dashboard_TopSale-1.js" />
+    <Content Remove="wwwroot\js\dashboard\dashboard_TopSale-12.js" />
+    <Content Remove="wwwroot\js\dashboard\dashboard_TopSale-2.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Views\Shared\brand\blue-1.png" />
+    <None Remove="Views\Shared\brand\blue-2.png" />
+    <None Remove="Views\Shared\brand\blue.png" />
+    <None Remove="Views\Shared\brand\favicon-old.png" />
+    <None Remove="Views\Shared\brand\favicon.png" />
+    <None Remove="Views\Shared\brand\unuse\blue-logo.png" />
+    <None Remove="Views\Shared\brand\unuse\blue.png" />
+    <None Remove="Views\Shared\brand\web-WH-imit.png" />
+    <None Remove="Views\Shared\brand\web-WH-no-imit.png" />
+    <None Remove="Views\Shared\brand\white.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\Shared\brand\blue-1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\brand\blue-2.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\brand\blue.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\brand\favicon-old.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\brand\favicon.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\brand\unuse\blue-logo.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\brand\unuse\blue.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\brand\web-WH-imit.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\brand\web-WH-no-imit.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Shared\brand\white.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 
@@ -62,9 +130,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\TSR\Data\" />
-    <Folder Include="Areas\TSR\Models\" />
-    <Folder Include="Areas\TSR\Views\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="wwwroot\Image\" />
   </ItemGroup>
   
   

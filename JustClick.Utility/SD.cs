@@ -6,7 +6,7 @@ namespace JustClick.Utility
 {
    public static class SD
     {
-
+        public const string DBTITLE = "Server=2556-4-101-0010;Database=TIC_PI_W4";
         public const  string ABANDON = "Abandon";
         public const  string ADDSUCCESS = "Add_Success";
         public const  string ADMIN = "ADMIN";

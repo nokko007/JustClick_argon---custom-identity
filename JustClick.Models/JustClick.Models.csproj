@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ContactModel.cs" />
     <Compile Remove="Identity\ApplicationUserEdit.cs" />
     <Compile Remove="LoginModel.cs" />
-    <Compile Remove="ViewModels\ProjectConfigVM.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +18,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JustClick.Utility\JustClick.Utility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\Admin\" />
   </ItemGroup>
 
 </Project>

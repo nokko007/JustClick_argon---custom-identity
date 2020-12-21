@@ -1,0 +1,58 @@
+﻿@{ ViewData["Title"] = "Dashboard"; }
+
+
+
+<div class="container-fluid mt--7  bg-gradient-primary  ">
+
+
+
+    <div class="row">
+        <div class="col-xl-12 mb-2 ">
+            <partial name="~/Views/Shared/DashboardAdmin/_AgentMonitoring.cshtml" />
+        </div>
+    </div>
+
+
+    <div class="row ">
+        <div class="col-xl-6  mb-2 ">
+            <partial name="~/Views/Shared/DashboardAdmin/_WeeklySale.cshtml" />
+        </div>
+        <div class="col-xl-6  mb-2 ">
+            <partial name="~/Views/Shared/DashboardAdmin/_DailySalebyTSR.cshtml" />
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+
+    <script>
+
+        setInterval('weeklysale()', 60 * 1000);
+        setInterval('dailysalebytsr()', 60 * 1000);
+        setInterval('agentmonitoring()', 10 * 1000);
+
+
+
+
+        $(document).ready(function () {
+
+            weeklysale();
+            dailysalebytsr();
+            agentmonitoring();
+
+        });
+
+    </script>
+
+    <script src="~/js/dashboard/dashboard_chartoption.js"></script>
+    <script src="~/js/dashboard/dashboard_weeklysale.js"></script>
+    <script src="~/js/dashboard/dashboard_dailysalebytsr.js"></script>
+    <script src="~/js/dashboard/dashboard_agentmonitoring.js"></script>
+
+
+}

@@ -1,0 +1,344 @@
+﻿@{ ViewData["Title"] = "Dashboard"; }
+
+@model JustClick.Models.ViewModels.ReportGraphWeeklyVM
+@*<meta http-equiv="Refresh" content="10" />*@
+<div class="row">
+    <div class="col-xl-8 mb-5 mb-xl-0">
+        <div class="card bg-gradient-default shadow">
+            <div class="card-header bg-transparent">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
+                        <h2 class="text-white mb-0">Last 7 days Sales value</h2>
+                    </div>
+
+                    <div class="col">
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Chart -->
+                <div class="chart">
+                    <!-- Chart wrapper -->
+                    <canvas id="myChart" class="chart-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="card shadow">
+            <div class="card-header bg-transparent">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
+                        <h2 class="mb-0">Total orders</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Chart -->
+                <div class="chart">
+                    <canvas id="weeklytsr" class="chart-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- daily tsr-->
+
+
+<div class="row mt-5">
+    <partial name="_DailySalebyTSR" />
+
+
+    @* <div class="col-xl-4">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="mb-0">Social traffic</h3>
+                        </div>
+                        <div class="col text-right">
+                            <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <!-- Projects table -->
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Referral</th>
+                                <th scope="col">Visitors</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">
+                                    Facebook
+                                </th>
+                                <td>
+                                    1,480
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span class="mr-2">60%</span>
+                                        <div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Facebook
+                                </th>
+                                <td>
+                                    5,480
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span class="mr-2">70%</span>
+                                        <div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Google
+                                </th>
+                                <td>
+                                    4,807
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span class="mr-2">80%</span>
+                                        <div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Instagram
+                                </th>
+                                <td>
+                                    3,678
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span class="mr-2">75%</span>
+                                        <div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    twitter
+                                </th>
+                                <td>
+                                    2,645
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span class="mr-2">30%</span>
+                                        <div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>*@
+</div>
+
+
+@section Scripts{
+
+
+    <script type="text/javascript">
+        //setInterval('window.location.reload()', 30 * 1000);
+        setInterval('loadDataTable()', 30 * 1000);
+        setInterval('loadDataTable2()', 30 * 1000);
+    @*</script>
+
+
+    <script>*@
+
+        $(document).ready(function () {
+            loadDataTable();
+            loadDataTable2();
+
+        });
+
+        function loadDataTable() {
+
+
+            $.ajax({
+                url: "/Admin/Dashboard/Getweekly/",
+                datatype: "json",
+                success: (function (data) {
+                    //debugger;
+                    var chartlabel = [];
+                    var chartdata1 = [];
+                    var totalsales = 0;
+
+
+                    for (var i = 0; i < 7; i++) {
+                        chartlabel.push(data.data[i].ddate);
+                        chartdata1.push(data.data[i].sales);
+
+                        totalsales = totalsales + data.data[i].sales;
+                    }
+
+                    totalsales = 'Total Premium ' + totalsales;
+
+                    //debugger;
+                    var ctx = document.getElementById('myChart');
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: chartlabel// ['Today-6', 'Today-5', 'Today-4', 'Today-3', 'Today-2', 'Today-1', 'Today'] // [chartlabel]
+                            ,
+                            datasets: [{
+                                label: totalsales,
+                                data: chartdata1,
+                                backgroundColor: 'fillPattern',
+                                borderColor: '#38b9f5',
+                                borderWidth: 4,
+                                tension: .4,
+                                fill: false,
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+
+                            maintainAspectRatio: false,
+                            scales: {
+                                yAxes: [{
+                                    gridLines: {
+                                        color: Charts.colors.gray[900],
+                                        zeroLineColor: Charts.colors.gray[900]
+                                    },
+                                    ticks: {
+                                        beginAtZero: true,
+                                        fontColor: '#ffffff'
+                                        //callback: function (value) {
+                                        //    if (!(value % 10)) {
+                                        //        return '$' + value + 'k';
+                                        //    }
+                                        //}
+                                    }
+                                }],
+                                xAxes: [{
+                                    ticks: {
+                                        fontColor: '#ffffff'
+                                    },
+                                }]
+                            },
+
+                            //,
+
+                            //tooltips: {
+                            //    callbacks: {
+                            //        label: function (item, chartdata1) {
+                            //            var label = chartdata1.datasets[item.datasetIndex].label || '';
+                            //            var yLabel = item.yLabel;
+                            //            var content = '';
+
+                            //            if (chartdata1.datasets.length > 1) {
+                            //                content += '<span class="popover-body-label mr-auto">' + label + '</span>';
+                            //            }
+
+                            //            content += '<span class="popover-body-value">$' + yLabel + 'k</span>';
+                            //            return content;
+                            //        }
+                            //    }
+                            //},
+                            //		legend: {
+                            //    display: false,
+                            //    position: 'bottom',
+                            //    labels: {
+                            //        usePointStyle: true,
+                            //        padding: 16
+                            //    }
+                            //}
+
+                        }
+
+                    });
+
+                })
+
+            });
+
+
+
+        }
+
+
+
+    @*</script>
+
+
+
+    <script>*@
+
+
+
+        function loadDataTable2() {
+
+            $.ajax(
+                {
+                    url: "/Admin/Dashboard/Getdailysalebytsr/",
+                    datatype: "json",
+                    success: (function (data1) {
+                        var row1 = "";
+
+                        for (i = 0; i < data1.data.length; i++) {
+                            row1 += '<tr> <th scope="row"> <span class="avatar avatar-sm rounded-circle">  <a href = "/Admin/Dashboard/Profile/' + data1.data[i].Id + '" > <img src="/img/Users/' + data1.data[i].tsr_picture + '">  </a> </span> </th> <td>' + data1.data[i].tsr + '</td><td>' + data1.data[i].sales + '</td>';
+                            if (data1.data[i].bounce == "UP") {
+                                row1 += '<td> <i class="fas fa-arrow-up text-success mr-3"></i></td></tr>'
+                            }
+                            else { row1 += '<td><i class="fas fa-arrow-down text-warning mr-3"></i></td></tr>' }
+                        }
+                        $("#PID").html(row1);
+
+
+                    })
+
+                });
+        }
+        
+    </script>
+
+
+    
+
+
+
+}
